@@ -99,12 +99,12 @@
   <div class="drop" id="drop">
     <div class="ico">🖼️</div>
     <div class="t">把圖片拖到這裡，或點此選擇檔案</div>
-    <div class="s">接受 .png / .ico / .jpg / .svg / .webp，建議正方形、32–256px、3MB 以內</div>
+    <div class="s">只接受 favicon 標準格式 .ico / .png / .svg，建議正方形、32–256px、3MB 以內</div>
     <div class="btns">
       <button class="primary" id="pick" type="button">選擇圖片</button>
       <button class="ghost" id="reset" type="button" disabled>還原預設</button>
     </div>
-    <input type="file" id="file" accept="image/png,image/x-icon,image/vnd.microsoft.icon,image/jpeg,image/svg+xml,image/webp,.ico,.png,.jpg,.jpeg,.svg,.webp" hidden>
+    <input type="file" id="file" accept="image/png,image/x-icon,image/vnd.microsoft.icon,image/svg+xml,.ico,.png,.svg" hidden>
   </div>
   <div id="msg"></div>
 
@@ -135,8 +135,8 @@
 <script>
 (function(){
   var MAX_BYTES = 3 * 1024 * 1024;
-  var OK_TYPES = ["image/png","image/x-icon","image/vnd.microsoft.icon","image/jpeg","image/svg+xml","image/webp"];
-  var OK_EXT = ["png","ico","jpg","jpeg","svg","webp"];
+  var OK_TYPES = ["image/png","image/x-icon","image/vnd.microsoft.icon","image/svg+xml"];
+  var OK_EXT = ["png","ico","svg"];
   var DEFAULT_FAV = "assets/favicon.ico";
 
   var drop=document.getElementById("drop"), file=document.getElementById("file"),
@@ -165,7 +165,7 @@
   function validateFile(f){
     var e=ext(f.name);
     var typeOk = OK_TYPES.indexOf(f.type)!==-1 || OK_EXT.indexOf(e)!==-1;
-    if(!typeOk) return "這不是支援的圖片格式。請改用 .png / .ico / .jpg / .svg / .webp。";
+    if(!typeOk) return "這不是 favicon 支援的格式。只接受 favicon 標準格式 .ico / .png / .svg。";
     if(f.size>MAX_BYTES) return "檔案太大（"+(f.size/1024/1024).toFixed(1)+"MB）。favicon 不需這麼大，請壓在 3MB 以內。";
     return null;
   }
